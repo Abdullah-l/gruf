@@ -32,7 +32,7 @@ module Rpc
         self.unmarshal_class_method = :decode
         self.service_name = 'rpc.test.Service1'
 
-        rpc :Get1, ::Rpc::Test::Get1Request, ::Rpc::Test::Product1
+        rpc :Get1, stream(::Rpc::Test::Get1Request), ::Rpc::Test::Product1
       end
 
       Stub = Service.rpc_stub_class
