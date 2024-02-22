@@ -19,7 +19,7 @@ syntax = "proto3";
 package rpc.test;
 
 service Service1 {
-    rpc Get1(Get1Request) returns (Product1) {}
+    rpc Get1(stream Get1Request) returns (Product1) {}
 }
 
 message Product1 {

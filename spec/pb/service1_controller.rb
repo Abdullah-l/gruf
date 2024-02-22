@@ -24,7 +24,10 @@ class Service1Controller < ::Gruf::Controllers::Base
   include Gruf::Loggable
 
   def get1
-    logger.info "Received get1: #{request.inspect}"
+    logger.info "Received get1 at #{Time.now}"
+    request.messages.each do |message|
+      # Call get2 while waiting for get1 messages
+    end
     ::Rpc::Test::Product1.new(id: request.message.id, name: FFaker::Name.first_name)
   end
 end

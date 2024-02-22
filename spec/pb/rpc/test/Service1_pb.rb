@@ -5,7 +5,7 @@
 require 'google/protobuf'
 
 
-descriptor_data = "\n\x17rpc/test/Service1.proto\x12\x08rpc.test\"$\n\x08Product1\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0c\n\x04name\x18\x02 \x01(\t\"\x19\n\x0bGet1Request\x12\n\n\x02id\x18\x01 \x01(\r2?\n\x08Service1\x12\x33\n\x04Get1\x12\x15.rpc.test.Get1Request\x1a\x12.rpc.test.Product1\"\x00\x62\x06proto3"
+descriptor_data = "\n\x17rpc/test/Service1.proto\x12\x08rpc.test\"$\n\x08Product1\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0c\n\x04name\x18\x02 \x01(\t\"\x19\n\x0bGet1Request\x12\n\n\x02id\x18\x01 \x01(\r2A\n\x08Service1\x12\x35\n\x04Get1\x12\x15.rpc.test.Get1Request\x1a\x12.rpc.test.Product1\"\x00(\x01\x62\x06proto3"
 
 pool = Google::Protobuf::DescriptorPool.generated_pool
 

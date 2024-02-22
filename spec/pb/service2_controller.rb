@@ -24,7 +24,7 @@ class Service2Controller < ::Gruf::Controllers::Base
   include Gruf::Loggable
 
   def get2
-    logger.info "Received get2: #{request.inspect}"
+    logger.info "Received get2 at #{Time.now}"
     ::Rpc::Test::Product2.new(id: request.message.id, name: FFaker::Name.first_name)
   end
 end

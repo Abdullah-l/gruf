@@ -54,6 +54,15 @@ class ThingCreatorEnumerator
   end
 end
 
+class Get1RequestEnumerator
+  def each
+    return enum_for(:each) unless block_given?
+
+    loop do
+    end
+  end
+end
+
 # demo server tests
 namespace :gruf do
   namespace :demo do
@@ -201,11 +210,6 @@ namespace :gruf do
 
       services = [
         {
-          service: ::Rpc::Test::Service1,
-          name: 'Service1',
-          method: :Get1
-        },
-        {
           service: ::Rpc::Test::Service2,
           name: 'Service2',
           method: :Get2
@@ -216,17 +220,23 @@ namespace :gruf do
           method: :Get3
         }
       ]
-      threads = []
 
-      args[:times].to_i.times do |i|
-        services.each do |svc|
-          threads << Thread.new do
-            sleep(rand(0.05..3)) # spread the calls out
-            cl = gruf_demo_build_client(service: svc[:service])
-            Gruf.logger.info "- #{svc[:name]} (#{i}): Making call to #{svc[:method]}"
-            op = cl.call(svc[:method], id: i)
-            Gruf.logger.info "-- #{svc[:name]} (#{i}): #{op.message.inspect}"
-          end
+      first = Thread.new do
+        cl = gruf_demo_build_client(service: ::Rpc::Test::Service1)
+        Gruf.logger.info "Making call to Service1: Get1"
+        enumerator = Get1RequestEnumerator.new
+        op = cl.call(:Get1, enumerator.each)
+      end
+
+      threads = [first]
+
+      services.each do |svc|
+        threads << Thread.new do
+          sleep(1)
+          cl = gruf_demo_build_client(service: svc[:service])
+          Gruf.logger.info "- #{svc[:name]} (#{1}): Making call to #{svc[:method]}"
+          op = cl.call(svc[:method], id: 1)
+          Gruf.logger.info "-- #{svc[:name]} (#{1}): #{op.message.inspect}"
         end
       end
 
